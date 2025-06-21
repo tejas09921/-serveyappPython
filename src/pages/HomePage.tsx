@@ -9,6 +9,23 @@ export function HomePage() {
   const navigate = useNavigate();
   const [showPrivacy, setShowPrivacy] = useState(false);
 
+  const handleFeatureClick = (feature: string) => {
+    switch (feature) {
+      case 'question-types':
+        navigate('/admin/add-question');
+        break;
+      case 'anonymous':
+        navigate('/survey/demo');
+        break;
+      case 'analytics':
+        navigate('/admin/analytics');
+        break;
+      case 'security':
+        navigate('/privacy');
+        break;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       {/* Header */}
@@ -52,7 +69,12 @@ export function HomePage() {
                 Get Started
               </Button>
             </Link>
-            <Button variant="secondary" size="lg" className="px-8 py-4">
+            <Button 
+              variant="secondary" 
+              size="lg" 
+              className="px-8 py-4"
+              onClick={() => navigate('/survey/demo')}
+            >
               View Demo
             </Button>
           </div>
@@ -60,7 +82,7 @@ export function HomePage() {
 
         {/* Features Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          <Card hover className="text-center">
+          <Card hover className="text-center cursor-pointer" onClick={() => handleFeatureClick('question-types')}>
             <CardContent className="p-6">
               <div className="w-12 h-12 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <FileText className="w-6 h-6 text-blue-600" />
@@ -74,7 +96,7 @@ export function HomePage() {
             </CardContent>
           </Card>
 
-          <Card hover className="text-center">
+          <Card hover className="text-center cursor-pointer" onClick={() => handleFeatureClick('anonymous')}>
             <CardContent className="p-6">
               <div className="w-12 h-12 bg-gradient-to-r from-emerald-100 to-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Users className="w-6 h-6 text-emerald-600" />
@@ -88,7 +110,7 @@ export function HomePage() {
             </CardContent>
           </Card>
 
-          <Card hover className="text-center">
+          <Card hover className="text-center cursor-pointer" onClick={() => handleFeatureClick('analytics')}>
             <CardContent className="p-6">
               <div className="w-12 h-12 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <BarChart3 className="w-6 h-6 text-purple-600" />
@@ -102,7 +124,7 @@ export function HomePage() {
             </CardContent>
           </Card>
 
-          <Card hover className="text-center">
+          <Card hover className="text-center cursor-pointer" onClick={() => handleFeatureClick('security')}>
             <CardContent className="p-6">
               <div className="w-12 h-12 bg-gradient-to-r from-orange-100 to-red-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Shield className="w-6 h-6 text-orange-600" />
@@ -139,16 +161,10 @@ export function HomePage() {
       <div className="bg-white/50 backdrop-blur-sm border-t border-white/20 mt-16">
         <div className="max-w-6xl mx-auto px-4 py-8">
           <div className="text-center text-gray-600">
-            <p>&copy; 2025 Survey Platform. Built with React, TypeScript, and Supabase.</p>
+            <p>&copy; 2025 Survey Platform. Built with React, TypeScript, and MySQL.</p>
           </div>
         </div>
       </div>
-
-      {/* Privacy Modal */}
-      <Modal isOpen={showPrivacy} onClose={() => setShowPrivacy(false)} title="Privacy & Security">
-        <p className="mb-2">We use industry-standard encryption and secure database practices to protect your data. All survey responses can be stored anonymously. Read our full privacy policy for more details.</p>
-        <Button onClick={() => setShowPrivacy(false)}>Close</Button>
-      </Modal>
     </div>
   );
 }
